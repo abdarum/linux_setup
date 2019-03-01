@@ -1,0 +1,12 @@
+#Write it like ~/.ssh/config
+Host panamint
+     HostName panamint.ict.pwr.wroc.pl
+     User kstefanc
+     ServerAliveInterval 60
+     ServerAliveCountMax 10
+
+Host diablo
+     HostName diablo.ict.pwr.wroc.pl
+     User kstefanc
+     ServerAliveInterval 60
+     ServerAliveCountMax 10
