@@ -6,8 +6,8 @@ function disp_help {
 	echo "    Script: $0"
 	echo "Options:"
 	echo "-a - install most usage programs"
-	echo "-b - install boot-repair"
 	echo "-m - install AVR compilator and toolchain"
+	echo "-r - install repair tools(boot-repair and Gparted)"
 	echo "-s - setup ssh servers"
 	echo "-h - display help"
 }
@@ -19,15 +19,13 @@ function install_programs {
 	sudo apt-get install gimp
 	sudo apt-get install chromium
 	sudo apt-get install deluge
-	sudo apt-get install gparted
 }
 
-function install_boot_repair {
-	echo "Install boot-repair program"
-
+function install_repair_tools{
 	sudo add-apt-repository ppa:yannubuntu/boot-repair
 	sudo apt-get update
-	sudo apt-get install -y boot-repair && boot-repair
+	sudo apt-get install -y boot-repair
+	sudo apt-get install gparted
 }
 
 function setup_ssh {
@@ -44,19 +42,19 @@ function install_avr_compilator {
 if [ -z "$1" ] ; then
 	disp_help
 else
-	while getopts "absh" name; do
+	while getopts "amrsh" name; do
 		case "$name" in
 			a)	
 				echo "Install most usage programs"
 				install_programs
 				;;
-			b)
-				echo "Install boot repair"
-				install_boot_repair	
-				;;
 			m)
 				echo "Install AVR compilator and toolchain"
 				install_avr_compilator
+				;;
+			r)
+				echo "Install repair tools"
+				install_repair_tools
 				;;
 			s)
 				echo "SSH server set up"
