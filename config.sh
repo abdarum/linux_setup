@@ -7,6 +7,7 @@ function disp_help {
 	echo "Options:"
 	echo "-a - install most usage programs"
 	echo "-b - install boot-repair"
+	echo "-m - install AVR compilator and toolchain"
 	echo "-s - setup ssh servers"
 	echo "-h - display help"
 }
@@ -17,6 +18,8 @@ function install_programs {
 	sudo apt-get install git
 	sudo apt-get install gimp
 	sudo apt-get install chromium
+	sudo apt-get install deluge
+	sudo apt-get install gparted
 }
 
 function install_boot_repair {
@@ -33,6 +36,11 @@ function setup_ssh {
 	cp -rf config_ssh_setup_file ~/.ssh/config
 }
 
+function install_avr_compilator {
+	sudo apt-get update
+	sudo apt-get install binutils gcc-avr avr-libc uisp avrdude flex byacc bison
+}
+
 if [ -z "$1" ] ; then
 	disp_help
 else
@@ -45,6 +53,10 @@ else
 			b)
 				echo "Install boot repair"
 				install_boot_repair	
+				;;
+			m)
+				echo "Install AVR compilator and toolchain"
+				install_avr_compilator
 				;;
 			s)
 				echo "SSH server set up"
