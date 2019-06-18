@@ -6,7 +6,7 @@ function disp_help {
 	echo "    Script: $0"
 	echo "Options:"
 	echo "-a - install most usage programs"
-	echo "-m - install AVR compilator and toolchain"
+	echo "-m - install AVR and STM8 compilator and toolchain"
 	echo "-r - install repair tools(boot-repair and Gparted)"
 	echo "-s - setup ssh servers"
 	echo "-h - display help"
@@ -34,9 +34,13 @@ function setup_ssh {
 	cp -rf config_ssh_setup_file ~/.ssh/config
 }
 
-function install_avr_compilator {
+function install_avr_and_stm8_compilator {
 	sudo apt-get update
 	sudo apt-get install binutils gcc-avr avr-libc uisp avrdude flex byacc bison
+	sudo apt-get install sdcc
+	sudo apt-get install libusb-1.0-0-dev
+	#https://www.cnx-software.com/2015/04/13/how-to-program-stm8s-1-board-in-linux/
+	#https://www.ondrovo.com/a/20170107-stm8-getting-started/
 }
 
 if [ -z "$1" ] ; then
@@ -50,7 +54,7 @@ else
 				;;
 			m)
 				echo "Install AVR compilator and toolchain"
-				install_avr_compilator
+				install_avr_and_stm8_compilator
 				;;
 			r)
 				echo "Install repair tools"
